@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fig Tree - Tents, Chairs & Speakers</title>
+<style>
+body{font-family:Arial;background:#f0f7e8;margin:0;padding:15px}
+.box{background:white;max-width:480px;margin:auto;padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+h1{color:#2e7d32;text-align:center;margin:0}
+p{text-align:center;color:#555}
+input,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:10px;font-size:16px;box-sizing:border-box}
+button{width:100%;padding:15px;background:#2e7d32;color:white;border:none;border-radius:10px;font-size:18px;font-weight:bold}
+.price{background:#e8f5e9;padding:12px;border-radius:10px;text-align:center;font-weight:bold}
+.total{font-size:22px;color:#2e7d32;text-align:center;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🌳 FIG TREE</h1>
+<p>Tents, Chairs & Speakers for Celebrations<br><b>Migori</b></p>
+<div class="price">Tent: 2,000 KES | Chair: 20 KES | Speakers + Mic: 1,500 KES</div>
 
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Your Phone e.g. 0712345678">
+<input type="date" id="date">
+<input id="location" placeholder="Event Location e.g. Nyamira, Migori">
+<label>How many Tents?</label>
+<input type="number" id="tents" value="0">
+<label>How many Chairs?</label>
+<input type="number" id="chairs" value="0">
+<label>Need Speakers?</label>
+<select id="speakers"><option value="no">No</option><option value="yes">Yes - 1,500 KES</option></select>
+
+<div class="total" id="totalText">Total: 0 KES</div>
+<button onclick="book()">Book on WhatsApp</button>
+<p style="font-size:13px">After you click, WhatsApp will open. Just press Send.</p>
+</div>
+
+<script>
+function calc(){
+  let t = Number(document.getElementById('tents').value||0);
+  let c = Number(document.getElementById('chairs').value||0);
+  let s = document.getElementById('speakers').value;
+  let total = (t*2000)+(c*20)+(s=='yes'?1500:0);
+  document.getElementById('totalText').innerText = "Total: "+total+" KES";
+  return total;
+}
+document.getElementById('tents').oninput=calc;
+document.getElementById('chairs').oninput=calc;
+document.getElementById('speakers').onchange=calc;
+
+function book(){
+  let total = calc();
+  let msg = `Hello FIG TREE! I want to book:%0AName: ${document.getElementById('name').value}%0APhone: ${document.getElementById('phone').value}%0ADate: ${document.getElementById('date').value}%0ALocation: ${document.getElementById('location').value}%0ATents: ${document.getElementById('tents').value}%0AChairs: ${document.getElementById('chairs').value}%0ASpeakers: ${document.getElementById('speakers').value}%0A*Total: ${total} KES*`;
+  // REPLACE 0712345678 WITH YOUR NUMBER - format 254712345678
+  window.open("https://wa.me/254727218848?text="+msg, "_blank");
+}
+</script>
+</body>
+</html>
